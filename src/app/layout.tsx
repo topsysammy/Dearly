@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   description:
     "Write beautiful handwritten-style letters on digital stationery, then send them in an envelope that opens with a tap.",
   applicationName: "Dearly",
+  // iOS home-screen app: name under the icon, full-screen launch, light status bar.
+  appleWebApp: { capable: true, title: "Dearly", statusBarStyle: "default" },
   openGraph: {
     title: "Dearly — Some things are better written",
     description: "Handwritten-style letters on beautiful digital paper, delivered in an envelope that opens with a tap.",
