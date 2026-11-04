@@ -48,7 +48,7 @@ export class HttpError extends Error {
 export function handleError(err: unknown, where: string) {
   if (err instanceof HttpError) return json({ error: err.message }, err.status);
   if (err instanceof SharingNotConfiguredError)
-    return json({ error: "Link sharing isn't set up on this server yet.", code: "not_configured" }, 503);
+    return json({ error: "Dearly isn't connected to its database yet. Please try again later.", code: "not_configured" }, 503);
   console.error(`[dearly] ${where} failed:`, err instanceof Error ? err.name + ": " + err.message.slice(0, 200) : "unknown");
   return json({ error: "Something went wrong on our side. Please try again." }, 500);
 }
