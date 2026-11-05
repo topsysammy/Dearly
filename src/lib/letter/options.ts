@@ -54,6 +54,8 @@ export const PAPER_STYLES: { id: PaperStyle; name: string }[] = [
   { id: "lined", name: "Lined" },
   { id: "dotted", name: "Dotted" },
   { id: "grid", name: "Grid" },
+  { id: "halftone", name: "Comic" },
+  { id: "sunburst", name: "Sunburst" },
 ];
 
 export const PAPER_TEXTURES: { id: PaperTexture; name: string; hint: string }[] = [

@@ -29,6 +29,17 @@ export const DECORATION_TYPES = [
   "cake",
   "balloon",
   "envelope",
+  "hero",
+  "hero-mask",
+  "cape",
+  "hero-badge",
+  "pow",
+  "zap",
+  "wow",
+  "comic-burst",
+  "bolt",
+  "rocket",
+  "skyline",
 ] as const;
 
 export type DecorationType = (typeof DECORATION_TYPES)[number];
@@ -41,7 +52,8 @@ export type DecorationCategory =
   | "Doodles"
   | "Washi tape"
   | "Stamps"
-  | "Illustrations";
+  | "Illustrations"
+  | "Heroes";
 
 export type DecorationMeta = {
   type: DecorationType;
@@ -80,6 +92,18 @@ export const DECORATIONS: DecorationMeta[] = [
   { type: "cake", name: "Birthday cake", category: "Illustrations", vw: 100, vh: 100, defaultWidth: 0.13 },
   { type: "balloon", name: "Balloon", category: "Illustrations", vw: 70, vh: 140, defaultWidth: 0.08 },
   { type: "envelope", name: "Envelope", category: "Illustrations", vw: 110, vh: 76, defaultWidth: 0.12 },
+  // Original hero artwork — deliberately not based on any existing character.
+  { type: "hero", name: "Little hero", category: "Heroes", vw: 100, vh: 130, defaultWidth: 0.13 },
+  { type: "hero-mask", name: "Hero mask", category: "Heroes", vw: 140, vh: 60, defaultWidth: 0.16 },
+  { type: "cape", name: "Cape", category: "Heroes", vw: 100, vh: 120, defaultWidth: 0.11 },
+  { type: "hero-badge", name: "Hero badge", category: "Heroes", vw: 90, vh: 104, defaultWidth: 0.1 },
+  { type: "pow", name: "POW!", category: "Heroes", vw: 140, vh: 110, defaultWidth: 0.17 },
+  { type: "zap", name: "ZAP!", category: "Heroes", vw: 140, vh: 110, defaultWidth: 0.16 },
+  { type: "wow", name: "WOW!", category: "Heroes", vw: 140, vh: 110, defaultWidth: 0.16 },
+  { type: "comic-burst", name: "Comic burst", category: "Heroes", vw: 110, vh: 110, defaultWidth: 0.12 },
+  { type: "bolt", name: "Lightning bolt", category: "Heroes", vw: 60, vh: 110, defaultWidth: 0.07 },
+  { type: "rocket", name: "Rocket", category: "Heroes", vw: 70, vh: 130, defaultWidth: 0.08 },
+  { type: "skyline", name: "City skyline", category: "Heroes", vw: 300, vh: 90, defaultWidth: 0.6 },
 ];
 
 export const DECORATION_CATEGORIES: DecorationCategory[] = [
@@ -91,6 +115,7 @@ export const DECORATION_CATEGORIES: DecorationCategory[] = [
   "Washi tape",
   "Stamps",
   "Illustrations",
+  "Heroes",
 ];
 
 export function getDecorationMeta(type: string): DecorationMeta | undefined {

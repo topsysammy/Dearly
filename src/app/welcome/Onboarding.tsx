@@ -7,7 +7,6 @@ import { AnimatePresence, motion, useReducedMotion, type PanInfo } from "framer-
 import { ArrowRight } from "lucide-react";
 import { handwritingFamily } from "@/lib/fonts";
 import { getTemplate, templatePreviewDoc } from "@/lib/letter/templates";
-import { Envelope } from "@/components/envelope/Envelope";
 import { FittedPaper } from "@/components/paper/FittedPaper";
 import { DecorationArt } from "@/components/decorations/DecorationArt";
 import { SketchGlobe } from "@/components/sketch/SketchGlobe";
@@ -17,15 +16,6 @@ import { LogoMark } from "@/components/ui/Logo";
 const markOnboarded = () => {
   document.cookie = `dearly_onboarded=1; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax`;
 };
-
-function SealedEnvelope() {
-  const doc = templatePreviewDoc(getTemplate("midnight-rose")!);
-  return (
-    <motion.div className="w-[min(78vw,330px)]" animate={{ y: [0, -8, 0], rotate: [-3, -2, -3] }} transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}>
-      <Envelope doc={doc} recipientLabel="for you" />
-    </motion.div>
-  );
-}
 
 const LINE = "I hope today is gentle with you, and that you know how loved you are.";
 
@@ -88,8 +78,7 @@ function Stationery() {
 }
 
 const SLIDES = [
-  { art: SealedEnvelope, title: "Some things are better written.", body: "Dearly turns your words into letters that feel like real paper — and real post." },
-  { art: TypingLetter, title: "Your words, in real ink.", body: "Type as you would talk. Watch it appear in one of ten handwriting styles." },
+  { art: TypingLetter, title: "Some things are better written.", body: "Dearly turns your words into letters that feel like real paper — and real post." },
   { art: Stationery, title: "Make it yours.", body: "Pick paper, ink and edges, then decorate with flowers, washi tape and stamps." },
   { art: () => <SketchGlobe className="w-[min(82vw,340px)]" />, title: "Send it anywhere.", body: "They receive a sealed envelope that opens with a tap. No app, no account needed." },
 ];

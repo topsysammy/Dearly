@@ -187,6 +187,8 @@ function PatternSample({ style, color }: { style: PaperStyle; color: string }) {
     lined: "linear-gradient(to bottom, transparent 9px, rgba(84,116,168,.35) 9px) 0 0 / 100% 10px",
     dotted: "radial-gradient(circle, rgba(70,64,56,.4) 1px, transparent 1.4px) 0 0 / 8px 8px",
     grid: "linear-gradient(rgba(84,116,168,.25) 1px, transparent 1px) 0 0 / 8px 8px, linear-gradient(90deg, rgba(84,116,168,.25) 1px, transparent 1px) 0 0 / 8px 8px",
+    halftone: "radial-gradient(circle, rgba(31,29,43,.3) 1.4px, transparent 1.8px) 0 0 / 7px 7px",
+    sunburst: "repeating-conic-gradient(from 0deg at 50% 40%, rgba(255,186,40,.35) 0deg 10deg, transparent 10deg 20deg)",
   };
   return <div className="h-14 w-full rounded-lg border border-black/[0.06]" style={{ background: `${bg[style] === "none" ? "" : bg[style] + ","} ${color}` }} />;
 }
@@ -226,7 +228,7 @@ export function PaperPanel({ doc, update }: PanelProps) {
         <Swatches label="Paper colour" value={p.color} options={PAPER_COLORS} round={false} onChange={(v) => setPaper(update, { color: v })} />
       </Section>
       <Section title="Style">
-        <div role="radiogroup" aria-label="Paper style" className="grid grid-cols-4 gap-2">
+        <div role="radiogroup" aria-label="Paper style" className="grid grid-cols-3 gap-2 sm:grid-cols-6 lg:grid-cols-3">
           {PAPER_STYLES.map((s) => (
             <Tile key={s.id} label={s.name} active={p.style === s.id} onClick={() => setPaper(update, { style: s.id })}>
               <PatternSample style={s.id} color={p.color} />

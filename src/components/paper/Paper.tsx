@@ -46,6 +46,55 @@ function PatternLayer({ doc }: { doc: LetterDocument }) {
   const { line, padTop, padX, fontPx, height } = paperMetrics(doc);
   const style = doc.paper.style;
   if (style === "blank") return null;
+
+  // Comic styles are decorative backdrops, kept faint and faded behind the writing area.
+  if (style === "halftone") {
+    return (
+      <>
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: "radial-gradient(circle, rgba(31,29,43,0.16) 1.7px, transparent 2.2px)",
+            backgroundSize: "11px 11px",
+          }}
+        />
+        {/* Fade the dots out over the writing so the comic look lives in the corners. */}
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: `radial-gradient(ellipse 62% 58% at 50% 48%, ${doc.paper.color} 55%, transparent 100%)`,
+          }}
+        />
+      </>
+    );
+  }
+  if (style === "sunburst") {
+    return (
+      <>
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage:
+              "repeating-conic-gradient(from 0deg at 50% 38%, rgba(255,186,40,0.16) 0deg 9deg, transparent 9deg 18deg)",
+          }}
+        />
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: `radial-gradient(ellipse 58% 52% at 50% 46%, ${doc.paper.color} 45%, transparent 100%)`,
+          }}
+        />
+      </>
+    );
+  }
   // Put each ruled line just under the handwriting baseline.
   const lineY = line / 2 + fontPx * 0.36;
   const originY = padTop + lineY - line;

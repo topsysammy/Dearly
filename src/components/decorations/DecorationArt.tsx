@@ -5,6 +5,23 @@ import { getDecorationMeta, type DecorationType } from "@/lib/decorations/catalo
 
 const HEART = "M50 86C22 67 5 50 5 29 5 15 16 5 29 5c9 0 16 5 21 13 5-8 12-13 21-13 13 0 24 10 24 24 0 21-17 38-45 57Z";
 
+/* Comic palette for the original hero set: teal suit, orange cape, sunny star. */
+const COMIC_INK = "#1F1D2B";
+const HERO = { suit: "#1E8C8C", cape: "#FF7A2F", star: "#FFD93B", belt: "#FFD93B", boot: "#1F1D2B", skin: "#F5C9A0", hair: "#3B2A20", mask: "#2B2D5C" };
+
+/** Jagged comic "action" burst, deterministic so it looks the same in previews and exports. */
+function burstPath(cx: number, cy: number, rOuter: number, rInner: number, points: number, seed: number) {
+  let s = seed;
+  const rand = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+  const pts: string[] = [];
+  for (let i = 0; i < points * 2; i++) {
+    const a = (Math.PI * i) / points - Math.PI / 2;
+    const r = (i % 2 ? rInner : rOuter) * (0.86 + rand() * 0.22);
+    pts.push(`${(cx + Math.cos(a) * r * 1.06).toFixed(1)} ${(cy + Math.sin(a) * r * 0.8).toFixed(1)}`);
+  }
+  return `M${pts.join("L")}Z`;
+}
+
 function perforation(w: number, h: number, r: number, step: number) {
   const holes: [number, number][] = [];
   for (let x = step / 2; x < w; x += step) holes.push([x, 0], [x, h]);
@@ -282,6 +299,128 @@ function Art({ type, uid }: { type: DecorationType; uid: string }) {
           <circle cx="55" cy="44" r="9" fill="#9B2C3B" />
           <path d={HEART} fill="#F3C9CF" transform="translate(49.5 39.5) scale(.11)" />
         </>
+      );
+
+    /* ── Heroes: original artwork, not based on any existing character ── */
+    case "hero":
+      return (
+        <g stroke={COMIC_INK} strokeWidth="2.6" strokeLinejoin="round" strokeLinecap="round">
+          {/* cape */}
+          <path d="M30 52c-10 22-16 48-20 70 14-6 26-4 40-8 14 4 26 2 40 8-4-22-10-48-20-70Z" fill={HERO.cape} />
+          {/* body */}
+          <path d="M34 54c0-6 7-10 16-10s16 4 16 10v34c0 4-3 6-6 6H40c-3 0-6-2-6-6Z" fill={HERO.suit} />
+          <path d="M50 58l3.2 6.6 7.2 1-5.2 5 1.3 7.2-6.5-3.4-6.5 3.4 1.3-7.2-5.2-5 7.2-1Z" fill={HERO.star} strokeWidth="1.8" />
+          <path d="M34 80h32" stroke={HERO.belt} strokeWidth="5" />
+          {/* legs & boots */}
+          <path d="M40 94v18M60 94v18" strokeWidth="7" stroke={HERO.suit} />
+          <path d="M34 116h12v6H34ZM54 116h12v6H54Z" fill={HERO.boot} />
+          {/* arms raised in a cheer */}
+          <path d="M35 58 20 40M65 58l15-18" strokeWidth="7" stroke={HERO.suit} />
+          <circle cx="19" cy="38" r="5" fill={HERO.skin} />
+          <circle cx="81" cy="38" r="5" fill={HERO.skin} />
+          {/* head with a domino mask */}
+          <circle cx="50" cy="28" r="17" fill={HERO.skin} />
+          <path d="M31 22c4-12 14-17 22-16 9 1 15 7 16 14-8-4-16-4-24-1-6 2-10 3-14 3Z" fill={HERO.hair} />
+          <path d="M35 28c4-4 10-4 15-1 5-3 11-3 15 1-1 5-5 7-9 7-3 0-5-2-6-3-1 1-3 3-6 3-4 0-8-2-9-7Z" fill={HERO.mask} />
+          <circle cx="43" cy="29" r="1.8" fill="#fff" stroke="none" />
+          <circle cx="57" cy="29" r="1.8" fill="#fff" stroke="none" />
+          <path d="M44 38c3 3 9 3 12 0" fill="none" strokeWidth="2" />
+        </g>
+      );
+    case "hero-mask":
+      return (
+        <g stroke={COMIC_INK} strokeWidth="3" strokeLinejoin="round">
+          <path d="M70 18c-14-10-40-12-56-4C6 18 4 26 8 34c6 12 22 18 36 14 10-3 18-9 26-9s16 6 26 9c14 4 30-2 36-14 4-8 2-16-6-20-16-8-42-6-56 4Z" fill={HERO.mask} />
+          <path d="M22 28c4-6 14-7 22-3-2 7-8 11-14 10-5-1-8-3-8-7ZM118 28c-4-6-14-7-22-3 2 7 8 11 14 10 5-1 8-3 8-7Z" fill="#fff" />
+          <path d="M18 20c10-5 22-6 32-2" fill="none" stroke="#fff" strokeOpacity=".5" strokeWidth="3" strokeLinecap="round" />
+        </g>
+      );
+    case "cape":
+      return (
+        <g stroke={COMIC_INK} strokeWidth="2.6" strokeLinejoin="round">
+          <path d="M30 8c-12 30-22 70-24 104 16-10 30-4 44-10 14 6 28 0 44 10-2-34-12-74-24-104Z" fill={HERO.cape} />
+          <path d="M30 8h40c2 6-2 10-8 10H38c-6 0-10-4-8-10Z" fill={HERO.belt} />
+          <path d="M40 30c-6 22-10 46-11 70M60 30c6 22 10 46 11 70" fill="none" strokeOpacity=".35" strokeWidth="2" />
+        </g>
+      );
+    case "hero-badge":
+      return (
+        <g stroke={COMIC_INK} strokeWidth="3" strokeLinejoin="round">
+          <path d="M45 4 82 16v34c0 26-16 42-37 50C24 92 8 76 8 50V16Z" fill={HERO.suit} />
+          <path d="M45 13 73 22v28c0 20-12 33-28 40-16-7-28-20-28-40V22Z" fill={HERO.star} strokeWidth="2" />
+          <path d="M45 30l5.6 11.4 12.6 1.8-9.1 8.9 2.1 12.5L45 58.7l-11.2 5.9 2.1-12.5-9.1-8.9 12.6-1.8Z" fill={HERO.cape} strokeWidth="2" />
+        </g>
+      );
+    case "pow":
+    case "zap":
+    case "wow": {
+      const style = { pow: ["#FFD93B", "#E8452C"], zap: ["#7FD8E6", "#1D5F8A"], wow: ["#FF9FC4", "#6B2FA0"] }[type];
+      return (
+        <>
+          <path d={burstPath(70, 55, 66, 44, 13, type.length * 7)} fill={COMIC_INK} transform="translate(4 4)" />
+          <path d={burstPath(70, 55, 66, 44, 13, type.length * 7)} fill={style[0]} stroke={COMIC_INK} strokeWidth="3" strokeLinejoin="round" />
+          <text
+            x="70"
+            y="68"
+            textAnchor="middle"
+            fontFamily="Impact, 'Arial Black', 'Helvetica Neue', sans-serif"
+            fontWeight="900"
+            fontSize="36"
+            fill={style[1]}
+            stroke={COMIC_INK}
+            strokeWidth="2"
+            paintOrder="stroke"
+            transform="rotate(-8 70 55)"
+          >
+            {type.toUpperCase()}!
+          </text>
+        </>
+      );
+    }
+    case "comic-burst":
+      return (
+        <>
+          <path d={burstPath(55, 55, 52, 30, 16, 3)} fill="#FFD93B" stroke={COMIC_INK} strokeWidth="3" strokeLinejoin="round" />
+          <path d={burstPath(55, 55, 30, 18, 10, 9)} fill="#FF8A3D" stroke={COMIC_INK} strokeWidth="2.4" strokeLinejoin="round" />
+          <circle cx="55" cy="55" r="7" fill="#fff" stroke={COMIC_INK} strokeWidth="2" />
+        </>
+      );
+    case "bolt":
+      return (
+        <path
+          d="M38 4 8 62h20l-8 44 34-62H32l8-40Z"
+          fill="#FFD93B"
+          stroke={COMIC_INK}
+          strokeWidth="3"
+          strokeLinejoin="round"
+        />
+      );
+    case "rocket":
+      return (
+        <g stroke={COMIC_INK} strokeWidth="2.6" strokeLinejoin="round">
+          <path d="M28 104c-2 10 2 18 7 24 5-6 9-14 7-24Z" fill="#FF8A3D" />
+          <path d="M31 104c0 6 2 10 4 14 2-4 4-8 4-14Z" fill="#FFD93B" strokeWidth="1.6" />
+          <path d="M20 78 6 96v10l16-8ZM50 78l14 18v10l-16-8Z" fill={HERO.cape} />
+          <path d="M35 6c-14 14-18 40-16 70l4 28h24l4-28c2-30-2-56-16-70Z" fill="#F7F4EE" />
+          <circle cx="35" cy="48" r="9" fill="#7FD8E6" />
+          <path d="M23 92h24" strokeWidth="3" stroke={HERO.suit} />
+        </g>
+      );
+    case "skyline":
+      return (
+        <g stroke={COMIC_INK} strokeWidth="2.2" strokeLinejoin="round">
+          {[
+            [0, 46, 28], [26, 30, 22], [46, 54, 30], [74, 18, 24], [96, 40, 30], [124, 8, 20],
+            [142, 34, 34], [174, 22, 24], [196, 48, 30], [224, 14, 26], [248, 38, 28], [274, 50, 26],
+          ].map(([x, y, w], i) => (
+            <g key={i}>
+              <rect x={x} y={y} width={w} height={90 - y} fill={i % 2 ? "#2F4B6E" : "#3E6189"} />
+              {Array.from({ length: Math.floor((86 - y) / 12) }).map((_, r) => (
+                <rect key={r} x={x + 5} y={y + 6 + r * 12} width={w - 10} height="4" fill="#FFD93B" fillOpacity={(r + i) % 3 ? 0.85 : 0.25} stroke="none" />
+              ))}
+            </g>
+          ))}
+        </g>
       );
     default:
       return null;
