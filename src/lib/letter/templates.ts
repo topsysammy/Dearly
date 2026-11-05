@@ -12,6 +12,7 @@ export const TEMPLATE_CATEGORIES = [
   "Appreciation",
   "Friendship",
   "Heroes",
+  "Anime",
 ] as const;
 export type TemplateCategory = Exclude<(typeof TEMPLATE_CATEGORIES)[number], "All">;
 
@@ -338,6 +339,72 @@ export const TEMPLATES: LetterTemplate[] = [
         "Every hero needs a sidekick, and I got the best one. Thanks for the rescue missions, the late-night pep talks and for laughing at all my plans before helping with them anyway.",
       closing: "Your partner in crime-fighting,",
       signature: "Max",
+      date: "",
+    },
+  },
+  {
+    id: "doki-doki",
+    name: "Doki Doki",
+    category: "Anime",
+    description: "Pink kawaii paper, a shy chibi and sakura — for a heart-racing confession.",
+    paper: { color: "#FFE8F0", style: "kawaii", texture: "smooth", size: "A5", edgeStyle: "rounded" },
+    typography: { fontFamily: "caveat", fontSize: 23, inkColor: "#7A1F35", lineHeight: 1.55, letterSpacing: 0.25, alignment: "left" },
+    decorations: [
+      deco("doki", 0.21, 0.04, 0.19, 0.533, -6),
+      deco("chibi", 0.85, 0.86, 0.15, 1.3, 4),
+      deco("sakura", 0.14, 0.92, 0.18, 0.833, -10),
+    ],
+    sample: {
+      recipient: "Hana",
+      greeting: "Dear",
+      message:
+        "My heart goes doki doki every time you laugh at my terrible jokes. I have practised saying this a hundred times, so I am writing it instead: I really, really like you.",
+      closing: "Shyly yours,",
+      signature: "Ren",
+      date: "",
+    },
+  },
+  {
+    id: "arigatou",
+    name: "Arigatou!",
+    category: "Anime",
+    description: "Manga speed lines, a speech bubble and a smiling onigiri to say thank you.",
+    paper: { color: "#EAF7F0", style: "speedlines", texture: "smooth", size: "A5", edgeStyle: "straight" },
+    typography: { fontFamily: "patrick-hand", fontSize: 21, inkColor: "#1F4D3A", lineHeight: 1.6, letterSpacing: 0, alignment: "left" },
+    decorations: [
+      deco("speech-bubble", 0.15, 0.9, 0.16, 0.769, -6),
+      deco("onigiri", 0.86, 0.9, 0.11, 0.92, 6),
+      deco("manga-sparkle", 0.93, 0.55, 0.09, 1, 0),
+    ],
+    sample: {
+      recipient: "Mika",
+      greeting: "Dear",
+      message:
+        "Arigatou for helping me move, for the emergency snacks and for staying up to watch just one more episode. You made a hard week feel like an adventure.",
+      closing: "With a big bow,",
+      signature: "Sora",
+      date: "",
+    },
+  },
+  {
+    id: "kawaii-besties",
+    name: "Kawaii Besties",
+    category: "Anime",
+    description: "Lavender kawaii paper with a cat, a boba and a smiling star for your bestie.",
+    paper: { color: "#F0EBFF", style: "kawaii", texture: "grainy", size: "A5", edgeStyle: "rounded" },
+    typography: { fontFamily: "nothing-you-could-do", fontSize: 21, inkColor: "#4B2A86", lineHeight: 1.7, letterSpacing: 0, alignment: "left" },
+    decorations: [
+      deco("kawaii-star", 0.16, 0.04, 0.08, 0.96, -10),
+      deco("kawaii-cat", 0.86, 0.88, 0.14, 0.909, 6),
+      deco("boba", 0.12, 0.86, 0.08, 1.714, -8),
+    ],
+    sample: {
+      recipient: "Yui",
+      greeting: "Hey",
+      message:
+        "You are my favourite person to share boba, gossip and doodles with. Thank you for every sleepover, every pep talk and every time you let me pick the snacks.",
+      closing: "Besties forever,",
+      signature: "Aiko",
       date: "",
     },
   },

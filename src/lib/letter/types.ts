@@ -3,7 +3,7 @@
  * the recipient-facing letter. Keep it serialisable (plain JSON).
  */
 
-export type PaperStyle = "blank" | "lined" | "dotted" | "grid" | "halftone" | "sunburst";
+export type PaperStyle = "blank" | "lined" | "dotted" | "grid" | "halftone" | "sunburst" | "speedlines" | "kawaii";
 export type PaperTexture = "smooth" | "grainy" | "vintage" | "recycled" | "linen";
 export type PaperSize = "A4" | "A5";
 export type EdgeStyle = "straight" | "rounded" | "torn";

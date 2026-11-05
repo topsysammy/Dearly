@@ -42,6 +42,15 @@ export function paperMetrics(doc: LetterDocument) {
   return { width, height, fontPx, line, padX, padTop, padBottom };
 }
 
+/** Tiny hearts, stars and dots for the "kawaii" paper (plain SVG, no filters, so it exports cleanly). */
+const KAWAII_TILE = `url("data:image/svg+xml,${encodeURIComponent(
+  "<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'>" +
+    "<path d='M14 20c-5-3-8-6-8-9 0-2 1.6-3.6 3.6-3.6 1.8 0 3.2 1 4.4 2.6 1.2-1.6 2.6-2.6 4.4-2.6 2 0 3.6 1.6 3.6 3.6 0 3-3 6-8 9Z' fill='#FF9DB8'/>" +
+    "<path d='M46 38l2 4.4 4.8.6-3.5 3.3.9 4.7-4.2-2.3-4.2 2.3.9-4.7-3.5-3.3 4.8-.6Z' fill='#FFD45E'/>" +
+    "<circle cx='44' cy='12' r='2.2' fill='#9CC9EE'/><circle cx='18' cy='50' r='2.2' fill='#C6B8FF'/>" +
+    "</svg>",
+)}")`;
+
 function PatternLayer({ doc }: { doc: LetterDocument }) {
   const { line, padTop, padX, fontPx, height } = paperMetrics(doc);
   const style = doc.paper.style;
@@ -67,6 +76,44 @@ function PatternLayer({ doc }: { doc: LetterDocument }) {
             position: "absolute",
             inset: 0,
             background: `radial-gradient(ellipse 62% 58% at 50% 48%, ${doc.paper.color} 55%, transparent 100%)`,
+          }}
+        />
+      </>
+    );
+  }
+  if (style === "speedlines") {
+    return (
+      <>
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage:
+              "repeating-conic-gradient(from 0deg at 50% 44%, rgba(31,29,43,0.13) 0deg 0.7deg, transparent 0.7deg 3.4deg)",
+          }}
+        />
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: `radial-gradient(ellipse 60% 56% at 50% 46%, ${doc.paper.color} 58%, transparent 100%)`,
+          }}
+        />
+      </>
+    );
+  }
+  if (style === "kawaii") {
+    return (
+      <>
+        <div aria-hidden style={{ position: "absolute", inset: 0, backgroundImage: KAWAII_TILE, backgroundSize: "64px 64px", opacity: 0.55 }} />
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: `radial-gradient(ellipse 60% 56% at 50% 46%, ${doc.paper.color} 50%, transparent 100%)`,
           }}
         />
       </>

@@ -28,7 +28,7 @@ export const letterDocumentSchema = z.object({
   templateId: shortText(64),
   paper: z.object({
     color: hex,
-    style: z.enum(["blank", "lined", "dotted", "grid", "halftone", "sunburst"]),
+    style: z.enum(["blank", "lined", "dotted", "grid", "halftone", "sunburst", "speedlines", "kawaii"]),
     texture: z.enum(["smooth", "grainy", "vintage", "recycled", "linen"]),
     size: z.enum(["A4", "A5"]),
     edgeStyle: z.enum(["straight", "rounded", "torn"]),

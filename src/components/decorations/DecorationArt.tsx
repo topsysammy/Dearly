@@ -9,6 +9,9 @@ const HEART = "M50 86C22 67 5 50 5 29 5 15 16 5 29 5c9 0 16 5 21 13 5-8 12-13 21
 const COMIC_INK = "#1F1D2B";
 const HERO = { suit: "#1E8C8C", cape: "#FF7A2F", star: "#FFD93B", belt: "#FFD93B", boot: "#1F1D2B", skin: "#F5C9A0", hair: "#3B2A20", mask: "#2B2D5C" };
 
+/* Pastel palette for the original anime-style set. */
+const ANIME = { hoodie: "#FFB3C7", hair: "#9C8CF2", skin: "#FFE3D2", eye: "#7FB6FF", blush: "#FF9DB8" };
+
 /** Jagged comic "action" burst, deterministic so it looks the same in previews and exports. */
 function burstPath(cx: number, cy: number, rOuter: number, rInner: number, points: number, seed: number) {
   let s = seed;
@@ -421,6 +424,189 @@ function Art({ type, uid }: { type: DecorationType; uid: string }) {
             </g>
           ))}
         </g>
+      );
+    /* ── Anime: original kawaii/manga-style artwork, not based on any existing character ── */
+    case "chibi":
+      return (
+        <g stroke={COMIC_INK} strokeWidth="2.4" strokeLinejoin="round" strokeLinecap="round">
+          {/* arms: ink outline first, then the sleeve colour on top */}
+          <path d="M32 92 21 107M68 92l11 15" strokeWidth="10" />
+          <path d="M32 92 21 107M68 92l11 15" strokeWidth="5.5" stroke={ANIME.hoodie} />
+          {/* hoodie body */}
+          <path d="M28 96c0-14 10-22 22-22s22 8 22 22v22c0 4-3 6-6 6H34c-3 0-6-2-6-6Z" fill={ANIME.hoodie} />
+          <path d="M42 80c2 6 6 9 8 9s6-3 8-9" fill="none" />
+          <path d="M44 100h12" />
+          <circle cx="19" cy="109" r="4.5" fill={ANIME.skin} />
+          <circle cx="81" cy="109" r="4.5" fill={ANIME.skin} />
+          {/* big head */}
+          <path d="M14 46c0-24 16-38 36-38s36 14 36 38c0 20-16 32-36 32S14 66 14 46Z" fill={ANIME.skin} />
+          {/* hair: soft lavender with side tufts and an ahoge */}
+          <path d="M12 50C8 24 26 4 50 4s42 20 38 46c-4-10-8-16-14-20 0 8-6 12-10 12 2-6 0-12-4-16-4 8-12 14-22 16 2-4 2-8 0-12-6 6-14 12-26 20Z" fill={ANIME.hair} />
+          <path d="M50 4c-2-6 2-10 8-8-4 2-6 4-8 8Z" fill={ANIME.hair} />
+          <path d="M14 50c-4 10-2 22 4 28M86 50c4 10 2 22-4 28" fill="none" stroke={ANIME.hair} strokeWidth="6" />
+          {/* big sparkling eyes */}
+          <ellipse cx="36" cy="50" rx="7" ry="9" fill={COMIC_INK} stroke="none" />
+          <ellipse cx="64" cy="50" rx="7" ry="9" fill={COMIC_INK} stroke="none" />
+          <ellipse cx="36" cy="54" rx="5" ry="4" fill={ANIME.eye} stroke="none" />
+          <ellipse cx="64" cy="54" rx="5" ry="4" fill={ANIME.eye} stroke="none" />
+          <circle cx="33" cy="46" r="2.8" fill="#fff" stroke="none" />
+          <circle cx="61" cy="46" r="2.8" fill="#fff" stroke="none" />
+          <circle cx="38.5" cy="55" r="1.2" fill="#fff" stroke="none" />
+          <circle cx="66.5" cy="55" r="1.2" fill="#fff" stroke="none" />
+          <ellipse cx="27" cy="62" rx="6" ry="3" fill={ANIME.blush} stroke="none" opacity=".8" />
+          <ellipse cx="73" cy="62" rx="6" ry="3" fill={ANIME.blush} stroke="none" opacity=".8" />
+          <path d="M46 63c2 3 6 3 8 0" fill="none" strokeWidth="2" />
+        </g>
+      );
+    case "kawaii-cat":
+      return (
+        <g stroke={COMIC_INK} strokeWidth="2.6" strokeLinejoin="round" strokeLinecap="round">
+          <path d="M16 34 14 8l24 14M94 34l2-26-24 14" fill="#FFF4E6" />
+          <path d="M20 14l14 10M90 14 76 24" fill="none" stroke={ANIME.blush} strokeWidth="3" />
+          <path d="M8 60c0-24 20-40 47-40s47 16 47 40-20 36-47 36S8 84 8 60Z" fill="#FFF4E6" />
+          <path d="M36 56c0 4-3 6-5 6s-5-2-5-6M84 56c0 4-3 6-5 6s-5-2-5-6" fill="none" strokeWidth="3" />
+          <path d="M49 66c2 4 4 4 6 0 2 4 4 4 6 0" fill="none" strokeWidth="2.2" />
+          <path d="M55 62l-3-3h6Z" fill={ANIME.blush} strokeWidth="1.6" />
+          <ellipse cx="24" cy="70" rx="8" ry="4" fill={ANIME.blush} stroke="none" opacity=".8" />
+          <ellipse cx="86" cy="70" rx="8" ry="4" fill={ANIME.blush} stroke="none" opacity=".8" />
+          <path d="M4 62h12M4 70l12-2M106 62H94M106 70l-12-2" fill="none" strokeWidth="1.8" />
+        </g>
+      );
+    case "mochi-bunny":
+      return (
+        <g stroke={COMIC_INK} strokeWidth="2.6" strokeLinejoin="round" strokeLinecap="round">
+          <path d="M30 40C22 22 24 6 32 4s14 14 14 32M70 40c8-18 6-34-2-36S54 18 54 36" fill="#fff" />
+          <path d="M32 12c2 6 4 14 6 22M68 12c-2 6-4 14-6 22" fill="none" stroke={ANIME.blush} strokeWidth="3.5" />
+          <path d="M8 74c0-22 18-38 42-38s42 16 42 38c0 14-12 22-42 22S8 88 8 74Z" fill="#fff" />
+          <circle cx="36" cy="66" r="3.6" fill={COMIC_INK} stroke="none" />
+          <circle cx="64" cy="66" r="3.6" fill={COMIC_INK} stroke="none" />
+          <path d="M46 74c2 3 6 3 8 0" fill="none" strokeWidth="2" />
+          <ellipse cx="26" cy="76" rx="7" ry="3.5" fill={ANIME.blush} stroke="none" opacity=".85" />
+          <ellipse cx="74" cy="76" rx="7" ry="3.5" fill={ANIME.blush} stroke="none" opacity=".85" />
+        </g>
+      );
+    case "onigiri":
+      return (
+        <g stroke={COMIC_INK} strokeWidth="2.6" strokeLinejoin="round" strokeLinecap="round">
+          <path d="M50 6C66 6 96 58 94 74c-2 12-18 14-44 14S8 86 6 74C4 58 34 6 50 6Z" fill="#fff" />
+          <path d="M26 62h48v24c-8 2-16 2-24 2s-16 0-24-2Z" fill="#26413A" />
+          <circle cx="40" cy="48" r="3.2" fill={COMIC_INK} stroke="none" />
+          <circle cx="60" cy="48" r="3.2" fill={COMIC_INK} stroke="none" />
+          <path d="M45 55c2 3 8 3 10 0" fill="none" strokeWidth="2" />
+          <ellipse cx="32" cy="54" rx="5" ry="2.6" fill={ANIME.blush} stroke="none" opacity=".85" />
+          <ellipse cx="68" cy="54" rx="5" ry="2.6" fill={ANIME.blush} stroke="none" opacity=".85" />
+        </g>
+      );
+    case "boba":
+      return (
+        <g stroke={COMIC_INK} strokeWidth="2.4" strokeLinejoin="round" strokeLinecap="round">
+          <path d="M40 2 46 34" strokeWidth="5" stroke="#FF8FB1" />
+          <path d="M8 32h54l-2 10H10Z" fill="#F7F4EE" />
+          <path d="M11 42h48l-6 70c0 4-3 6-6 6H23c-3 0-6-2-6-6Z" fill="#E9C9A8" />
+          {[
+            [22, 104], [32, 108], [42, 104], [27, 96], [38, 98], [48, 96],
+          ].map(([x, y], i) => (
+            <circle key={i} cx={x} cy={y} r="3.4" fill="#4A2C22" stroke="none" />
+          ))}
+          <circle cx="27" cy="62" r="2.6" fill={COMIC_INK} stroke="none" />
+          <circle cx="43" cy="62" r="2.6" fill={COMIC_INK} stroke="none" />
+          <path d="M32 68c2 2 4 2 6 0" fill="none" strokeWidth="1.8" />
+          <ellipse cx="21" cy="68" rx="4" ry="2" fill={ANIME.blush} stroke="none" opacity=".85" />
+          <ellipse cx="49" cy="68" rx="4" ry="2" fill={ANIME.blush} stroke="none" opacity=".85" />
+        </g>
+      );
+    case "sakura": {
+      const flower = (cx: number, cy: number, r: number, rot: number) => (
+        <g transform={`rotate(${rot} ${cx} ${cy})`}>
+          {Array.from({ length: 5 }).map((_, i) => (
+            <path
+              key={i}
+              d={`M${cx} ${cy}c${-r * 0.55} ${-r * 0.35} ${-r * 0.6} ${-r * 1.05} 0 ${-r * 1.1}c${r * 0.25} ${r * 0.12} ${r * 0.35} ${r * 0.02} ${r * 0.5} ${-r * 0.12}c${r * 0.25} ${r * 0.6} ${-r * 0.05} ${r * 0.98} ${-r * 0.5} ${r * 1.22}Z`}
+              transform={`rotate(${i * 72} ${cx} ${cy})`}
+              fill="#FFC9DA"
+              stroke="#E98FAE"
+              strokeWidth="1.4"
+              strokeLinejoin="round"
+            />
+          ))}
+          <circle cx={cx} cy={cy} r={r * 0.22} fill="#FF8FB1" />
+        </g>
+      );
+      return (
+        <>
+          <path d="M4 92C30 80 52 62 70 40s34-30 46-32" fill="none" stroke="#6B4A3A" strokeWidth="5" strokeLinecap="round" />
+          <path d="M46 66c6-10 14-14 22-14M84 30c-2-10 0-18 6-22" fill="none" stroke="#6B4A3A" strokeWidth="3" strokeLinecap="round" />
+          {flower(34, 70, 16, 0)}
+          {flower(70, 46, 18, 20)}
+          {flower(102, 18, 13, -10)}
+          {flower(88, 72, 10, 30)}
+          <path d="M16 40c3-4 8-4 9 0-3 3-7 3-9 0ZM58 14c3-4 8-4 9 0-3 3-7 3-9 0Z" fill="#FFC9DA" stroke="#E98FAE" strokeWidth="1.2" />
+        </>
+      );
+    }
+    case "kawaii-star":
+      return (
+        <g stroke={COMIC_INK} strokeWidth="2.6" strokeLinejoin="round" strokeLinecap="round">
+          <path d="M50 6l12.4 27.6 30 3.2-22.4 20.3 6.3 29.6L50 71.6 23.7 86.7 30 57.1 7.6 36.8l30-3.2Z" fill="#FFE27A" />
+          <path d="M40 44c0 3-2 4-3.5 4S33 47 33 44M67 44c0 3-2 4-3.5 4S60 47 60 44" fill="none" strokeWidth="2.4" />
+          <path d="M44 52c3 4 9 4 12 0" fill="none" strokeWidth="2.2" />
+          <ellipse cx="33" cy="54" rx="5" ry="2.6" fill={ANIME.blush} stroke="none" opacity=".85" />
+          <ellipse cx="67" cy="54" rx="5" ry="2.6" fill={ANIME.blush} stroke="none" opacity=".85" />
+        </g>
+      );
+    case "manga-sparkle": {
+      const sp = (x: number, y: number, s: number, c: string) => (
+        <path
+          d={`M${x} ${y - s}C${x + s * 0.1} ${y - s * 0.1} ${x + s * 0.1} ${y - s * 0.1} ${x + s} ${y}C${x + s * 0.1} ${y + s * 0.1} ${x + s * 0.1} ${y + s * 0.1} ${x} ${y + s}C${x - s * 0.1} ${y + s * 0.1} ${x - s * 0.1} ${y + s * 0.1} ${x - s} ${y}C${x - s * 0.1} ${y - s * 0.1} ${x - s * 0.1} ${y - s * 0.1} ${x} ${y - s}Z`}
+          fill={c}
+          stroke={COMIC_INK}
+          strokeWidth="1.6"
+          strokeLinejoin="round"
+        />
+      );
+      return (
+        <>
+          {[[86, 78, 9], [24, 88, 7], [92, 30, 6]].map(([x, y, r], i) => (
+            <circle key={i} cx={x} cy={y} r={r} fill="#E6F4FF" stroke="#9CC9EE" strokeWidth="1.6" />
+          ))}
+          {sp(50, 50, 34, "#fff")}
+          {sp(82, 20, 14, "#FFE27A")}
+          {sp(22, 34, 11, "#FFC9DA")}
+          {sp(64, 92, 9, "#D9CCFF")}
+        </>
+      );
+    }
+    case "speech-bubble":
+      return (
+        <g stroke={COMIC_INK} strokeWidth="3" strokeLinejoin="round">
+          <path d="M65 6c32 0 58 16 58 38S97 82 65 82c-6 0-12-1-18-2L22 96l8-22C14 66 7 56 7 44 7 22 33 6 65 6Z" fill="#fff" />
+          <path d={HEART} fill="#FF7FA8" stroke="none" transform="translate(40 22) scale(.4)" />
+          <text x="94" y="56" textAnchor="middle" fontFamily="'Arial Black', Impact, sans-serif" fontWeight="900" fontSize="30" fill={COMIC_INK} stroke="none">
+            !
+          </text>
+        </g>
+      );
+    case "doki":
+      return (
+        <>
+          <path d={HEART} fill="#FF7FA8" stroke={COMIC_INK} strokeWidth="5" transform="translate(4 8) scale(.34) rotate(-12 50 45)" />
+          <path d={HEART} fill="#FFB3C7" stroke={COMIC_INK} strokeWidth="6" transform="translate(124 44) scale(.24) rotate(14 50 45)" />
+          <text
+            x="78"
+            y="54"
+            textAnchor="middle"
+            fontFamily="'Hiragino Maru Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif"
+            fontWeight="800"
+            fontSize="30"
+            fill="#FF5C93"
+            stroke={COMIC_INK}
+            strokeWidth="2.2"
+            paintOrder="stroke"
+            transform="rotate(-6 78 44)"
+          >
+            ドキドキ
+          </text>
+        </>
       );
     default:
       return null;

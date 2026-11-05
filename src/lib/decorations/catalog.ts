@@ -40,6 +40,16 @@ export const DECORATION_TYPES = [
   "bolt",
   "rocket",
   "skyline",
+  "chibi",
+  "kawaii-cat",
+  "mochi-bunny",
+  "onigiri",
+  "boba",
+  "sakura",
+  "kawaii-star",
+  "manga-sparkle",
+  "speech-bubble",
+  "doki",
 ] as const;
 
 export type DecorationType = (typeof DECORATION_TYPES)[number];
@@ -53,7 +63,8 @@ export type DecorationCategory =
   | "Washi tape"
   | "Stamps"
   | "Illustrations"
-  | "Heroes";
+  | "Heroes"
+  | "Anime";
 
 export type DecorationMeta = {
   type: DecorationType;
@@ -104,6 +115,17 @@ export const DECORATIONS: DecorationMeta[] = [
   { type: "bolt", name: "Lightning bolt", category: "Heroes", vw: 60, vh: 110, defaultWidth: 0.07 },
   { type: "rocket", name: "Rocket", category: "Heroes", vw: 70, vh: 130, defaultWidth: 0.08 },
   { type: "skyline", name: "City skyline", category: "Heroes", vw: 300, vh: 90, defaultWidth: 0.6 },
+  // Original anime-style artwork — deliberately not based on any existing character or brand.
+  { type: "chibi", name: "Chibi friend", category: "Anime", vw: 100, vh: 130, defaultWidth: 0.13 },
+  { type: "kawaii-cat", name: "Kawaii cat", category: "Anime", vw: 110, vh: 100, defaultWidth: 0.12 },
+  { type: "mochi-bunny", name: "Mochi bunny", category: "Anime", vw: 100, vh: 100, defaultWidth: 0.11 },
+  { type: "onigiri", name: "Onigiri", category: "Anime", vw: 100, vh: 92, defaultWidth: 0.1 },
+  { type: "boba", name: "Boba tea", category: "Anime", vw: 70, vh: 120, defaultWidth: 0.08 },
+  { type: "sakura", name: "Sakura branch", category: "Anime", vw: 120, vh: 100, defaultWidth: 0.16 },
+  { type: "kawaii-star", name: "Smiling star", category: "Anime", vw: 100, vh: 96, defaultWidth: 0.09 },
+  { type: "manga-sparkle", name: "Shōjo sparkles", category: "Anime", vw: 110, vh: 110, defaultWidth: 0.12 },
+  { type: "speech-bubble", name: "Speech bubble", category: "Anime", vw: 130, vh: 100, defaultWidth: 0.15 },
+  { type: "doki", name: "Doki doki!", category: "Anime", vw: 150, vh: 80, defaultWidth: 0.18 },
 ];
 
 export const DECORATION_CATEGORIES: DecorationCategory[] = [
@@ -116,6 +138,7 @@ export const DECORATION_CATEGORIES: DecorationCategory[] = [
   "Stamps",
   "Illustrations",
   "Heroes",
+  "Anime",
 ];
 
 export function getDecorationMeta(type: string): DecorationMeta | undefined {
