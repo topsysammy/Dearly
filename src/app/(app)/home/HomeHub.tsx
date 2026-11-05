@@ -6,7 +6,7 @@ import { Bell, MailOpen, Send, SlidersHorizontal } from "lucide-react";
 import { useLocalLibrary } from "@/hooks/useLocalLibrary";
 import { letterLabel } from "@/lib/letter/document";
 import { useUser } from "@/components/app/UserProvider";
-import { SketchGlobe } from "@/components/sketch/SketchGlobe";
+import { SketchLetter } from "@/components/sketch/SketchLetter";
 import { FittedPaper } from "@/components/paper/FittedPaper";
 import { Sheet } from "@/components/ui/Sheet";
 
@@ -89,7 +89,7 @@ export function HomeHub() {
       </p>
 
       <div className="flex flex-1 items-center justify-center py-2">
-        <SketchGlobe className="w-full max-w-[380px]" />
+        <SketchLetter name={firstName} />
       </div>
 
       <div className="flex flex-col items-center gap-3 pb-4">
